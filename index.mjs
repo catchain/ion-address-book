@@ -118,6 +118,14 @@ const saveAddressbook = async function createAndWriteAddressbookJson(directory =
     const addressbook = Object.fromEntries(addresses.entries());
 
     await writeFile(`${directory}addresses.json`, JSON.stringify(addressbook, undefined, 2));
+    
+    // CORS headers for Cloudflare Pages
+    await writeFile(`${directory}_headers`, `/*
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, OPTIONS
+  Content-Type: application/json
+`);
+    
     return addresses;
 };
 
